@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+       http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+    <context:property-placeholder location="classpath:resources.properties" />
+
+    <!-- 扫描注解Bean -->
+    <context:component-scan base-package="com.yirui.admin.**.service,com.yirui.admin.**.extra">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 开启AOP监听 只对当前配置文件有效 -->
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+
+    <!-- DataSource -->
+    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="initialSize" value="${druid.initialSize}" />
+        <property name="maxActive" value="${druid.maxActive}" />
+        <property name="minIdle" value="${druid.minIdle}" />
+        <property name="maxWait" value="${druid.maxWait}" />
+        <property name="validationQuery" value="${druid.validationQuery}" />
+        <property name="testOnBorrow" value="${druid.testOnBorrow}" />
+        <property name="testOnReturn" value="${druid.testOnReturn}" />
+        <property name="testWhileIdle" value="${druid.testWhileIdle}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+        <property name="removeAbandoned" value="${druid.removeAbandoned}" />
+        <!-- 单位秒 1800sec=>30min -->
+        <property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeout}" />
+        <property name="logAbandoned" value="${druid.logAbandoned}" />
+        <!-- 监控数据库 -->
+        <property name="filters" value="${druid.filters}" />
+    </bean>
+
+    <!-- Mybatis config -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath*:mapper/*.xml" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.yirui.admin.sys.user.dao"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <tx:advice id="transactionAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="doReweight" propagation="REQUIRES_NEW"/>
+            <tx:method name="doClear*" propagation="REQUIRES_NEW"/>
+            <tx:method name="doSend*" propagation="REQUIRES_NEW"/>
+            <tx:method name="doBatchSave*" propagation="REQUIRES_NEW"/>
+
+            <tx:method name="get*" read-only="true" propagation="SUPPORTS" timeout="60" />
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS" timeout="60" />
+            <tx:method name="count*" read-only="true" propagation="SUPPORTS" timeout="60" />
+            <tx:method name="save*" propagation="REQUIRED" timeout="60" />
+            <tx:method name="create*" propagation="REQUIRED" timeout="60" />
+            <tx:method name="add*" propagation="REQUIRED" timeout="60" />
+            <tx:method name="update*" propagation="REQUIRED" timeout="60" />
+            <tx:method name="delete*" propagation="REQUIRED" timeout="60" />
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.yirui.admin..service..*(..))"/>
+        <aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointcut" />
+    </aop:config>
+
+    <!-- Druid monitor spring jdbc -->
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+          scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.actionsky.dbaas.ui.service.*</value>
+            </list>
+        </property>
+    </bean>
+    <aop:config>
+        <aop:advisor advice-ref="druid-stat-interceptor"
+                     pointcut-ref="druid-stat-pointcut" />
+    </aop:config>
+
+    <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找  -->
+                <value>classpath:i18n/messages</value>
+                <value>classpath:i18n/ValidationMessages</value>
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
+
+    <!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <!-- Mybatis mapper -->
+    <bean id="baseDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.common.dao.BaseDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="baseTreeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.common.dao.BaseTreeableDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.user.dao.UserDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="groupDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.group.dao.GroupDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <import resource="spring-config-cache.xml" />
+    <import resource="spring-config-task.xml"/>
+    <import resource="spring-config-shiro.xml" />
+    <import resource="spring-config-monitor.xml" />
+</beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yirui.admin.sys.group.dao">
+    <!-- 缓存算法:LRU,FIFO,SOFT,WEAK
+             flushInterval 单位毫秒 清空缓存间隔-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache" eviction="LRU"
+           flushInterval="60000" size="1024" readOnly="true" />
+
+    <sql id="groupColumns">
+      SELECT id,name,type,is_show show,default_group defaultGroup FROM sys_group
+    </sql>
+
+    <select id="findDefaultGroupIds" resultType="int">
+        SELECT id FROM sys_group WHERE default_group=1 and is_show=1
+    </select>
+
+    <select id="findAll" resultType="Group">
+        <include refid="groupColumns"/>
+    </select>
+</mapper>

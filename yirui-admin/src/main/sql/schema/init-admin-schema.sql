@@ -28,7 +28,6 @@ create table `sys_user`(
   `salt`      varchar(10) NOT NULL DEFAULT '',
   `create_date` timestamp NOT NULL DEFAULT 0,
   `status`    enum('normal','blocked') NOT NULL DEFAULT 'normal',
-  `deleted`   tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `admin`     tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_sys_user_username_email` (`username`,`email`),

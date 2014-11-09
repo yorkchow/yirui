@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yirui.common.dao">
+
+    <delete id="deleteSelfAndChild" statementType="STATEMENT">
+      DELETE FROM ${tableName} WHERE id=${id} OR parentIds LIKE concat(${newParentIds}, '%')
+    </delete>
+
+    <update id="updateSelftAndChild" statementType="STATEMENT">
+      UPDATE ${tableName} SET parentIds=(${newParentIds} || SUBSTRING(parentIds, LENGTH(${oldParentIds})+1))
+      WHERE parentIds LIKE concat(${oldParentIds}, '%')
+    </update>
+
+    <select id="findNextWeight" statementType="STATEMENT">
+        SELECT (MAX(weight) + 1) FROM ${tableName} WHERE parentId = ${parentId}
+    </select>
+
+    <select id="findSelfAndNextSiblings" statementType="STATEMENT" resultType="com.yirui.common.model.BaseTreeModel">
+        SELECT * FROM ${tableName} where parentIds = ${parentIds} and weight>=${currentWeight} order by weight asc
+    </select>
+</mapper>
