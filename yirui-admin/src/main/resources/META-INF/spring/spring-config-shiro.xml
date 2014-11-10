@@ -169,10 +169,9 @@
         <property name="filterChainDefinitions">
             <value>
                 /static/** = anon
-                /jcaptcha* = anon
                 /logout = logout
-                /login = jCaptchaValidate,authc
-                /** = sysUser,onlineSession,user,syncOnlineSession,perms,roles
+                /login = authc
+                /** = sysUser,user,perms,roles
             </value>
         </property>
     </bean>

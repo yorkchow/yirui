@@ -14,9 +14,11 @@
     <context:property-placeholder location="classpath:resources.properties" />
 
     <!-- 扫描注解Bean -->
-    <context:component-scan base-package="com.yirui.admin.**.service,com.yirui.admin.**.extra">
+    <context:component-scan base-package="com.yirui.admin">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <context:annotation-config />
 
     <!-- 开启AOP监听 只对当前配置文件有效 -->
     <aop:aspectj-autoproxy expose-proxy="true"/>
@@ -54,9 +56,11 @@
         <property name="mapperLocations" value="classpath*:mapper/*.xml" />
     </bean>
 
+    <!-- 由于dao包路径在不同目录下所以不采用自动扫描
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
           p:basePackage="com.yirui.admin.sys.user.dao"
           p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+    -->
 
     <bean id="txManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -127,6 +131,7 @@
     </bean>
 
     <!-- Mybatis mapper -->
+    <!--
     <bean id="baseDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="com.yirui.common.dao.BaseDao" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
@@ -136,14 +141,55 @@
         <property name="mapperInterface" value="com.yirui.common.dao.BaseTreeableDao" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
+    -->
 
-    <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <bean id="sysUserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="com.yirui.admin.sys.user.dao.UserDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="userStatusHistoryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.user.dao.UserStatusHistoryDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="resourceDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.resource.dao.ResourceDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="organizationDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.organization.dao.OrganizationDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="jobDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.organization.dao.JobDao" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 
     <bean id="groupDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="com.yirui.admin.sys.group.dao.GroupDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="authDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.auth.dao.AuthDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="roleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.permission.dao.RoleDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="PermissionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.permission.dao.PermissionDao" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="groupRelationDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.yirui.admin.sys.group.dao.GroupRelationDao" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 

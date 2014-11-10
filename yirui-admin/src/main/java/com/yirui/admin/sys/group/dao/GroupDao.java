@@ -2,6 +2,7 @@ package com.yirui.admin.sys.group.dao;
 
 import com.yirui.admin.sys.group.model.Group;
 import com.yirui.common.dao.BaseDao;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,9 +11,12 @@ import java.util.List;
  * @since 2014/11/8
  * Time: 17:05
  */
-public interface GroupDao extends BaseDao<Group, Integer> {
+@Service
+public interface GroupDao {
 
-    List<Group> findAll();
+    public Group findOne(Integer id);
 
-    List<Integer> findDefaultGroupIds();
+    public List<Group> findAll();
+
+    public List<Integer> findDefaultGroupIds();
 }

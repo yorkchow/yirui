@@ -220,6 +220,12 @@
             <artifactId>logback-access</artifactId>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!-- end log -->
 
         <!-- begin web library -->

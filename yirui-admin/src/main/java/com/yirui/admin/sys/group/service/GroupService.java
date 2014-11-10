@@ -1,21 +1,24 @@
 package com.yirui.admin.sys.group.service;
 
-import com.yirui.admin.sys.group.dao.GroupDao;
 import com.yirui.admin.sys.group.model.Group;
-import com.yirui.common.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author YorkChow<york.chow@actionsky.com>
  * @since 2014/11/8
  * Time: 16:59
  */
-@Service
-public class GroupService extends BaseService<Group, Integer> {
+public interface GroupService {
 
-    @Autowired
-    private GroupDao groupDao;
+    /**
+     * 获取可用的的分组编号列表
+     *
+     * @param userId
+     * @param organizationIds
+     * @return
+     */
+    public List<Integer> findShowGroupIds(Integer userId, List<Integer> organizationIds);
 
-
+    public Group findOne(Integer id);
 }

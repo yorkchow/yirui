@@ -11,7 +11,7 @@
                 </div>
                 <div class="panel-body">
                     <yirui:showMessage></yirui:showMessage>
-                    <form role="form" method="post">
+                    <form role="form" id="loginForm" method="post">
                         <yirui:BackURL hiddenInput="true"/>
                         <fieldset>
                             <div class="form-group">

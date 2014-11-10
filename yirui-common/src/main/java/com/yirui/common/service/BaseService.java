@@ -22,10 +22,10 @@ public abstract class BaseService<M extends AbstractModel, ID extends Serializab
 
     protected BaseDao<M, ID> baseDao;
 
-    @Autowired
+    /*@Autowired
     public void setBaseDao(BaseDao<M, ID> baseDao) {
         this.baseDao = baseDao;
-    }
+    }*/
     /**
      * 保存单个实体
      *

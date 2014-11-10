@@ -4,6 +4,7 @@ import com.yirui.admin.sys.auth.service.UserAuthService;
 import com.yirui.admin.sys.user.model.User;
 import com.yirui.admin.sys.user.exception.*;
 import com.yirui.admin.sys.user.service.UserService;
+import com.yirui.common.dao.BaseDao;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -13,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
+import java.util.HashSet;
+
 /**
  * @author YorkChow<york.chow@actionsky.com>
  * @since 2014/11/8
@@ -20,9 +23,9 @@ import org.springframework.context.ApplicationContext;
  */
 public class UserRealm extends AuthorizingRealm {
 
-    @Autowired
+    //@Autowired
     private UserService userService;
-    @Autowired
+    //@Autowired
     private UserAuthService userAuthService;
 
     private static final Logger log = LoggerFactory.getLogger("es-error");
@@ -36,6 +39,8 @@ public class UserRealm extends AuthorizingRealm {
         //所以如果我们的bean在依赖它的bean之前初始化，那么就得不到ObjectType（永远是Repository）
         //所以此处我们先getBean一下 就没有问题了
         //ctx.getBeansOfType(SimpleBaseRepositoryFactoryBean.class);
+        this.userService = ctx.getBean(UserService.class);
+        this.userAuthService = ctx.getBean(UserAuthService.class);
     }
 
     @Override
@@ -44,8 +49,8 @@ public class UserRealm extends AuthorizingRealm {
         User user = userService.findByUsername(username);
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.setRoles(userAuthService.findStringRoles(user));
-        authorizationInfo.setStringPermissions(userAuthService.findStringPermissions(user));
+        authorizationInfo.setRoles(new HashSet<String>(userAuthService.findStringRoles(user)));
+        authorizationInfo.setStringPermissions(new HashSet<String>(userAuthService.findStringPermissions(user)));
 
         return authorizationInfo;
     }

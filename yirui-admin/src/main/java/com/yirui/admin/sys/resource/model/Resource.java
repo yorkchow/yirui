@@ -30,6 +30,14 @@ public class Resource extends BaseTreeModel<Integer> {
         this.url = url;
     }
 
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
     public String getTreetableIds() {
         String selfId = makeSelfAsNewParentIds().replace("/", "-");
         return selfId.substring(0, selfId.length() - 1);
