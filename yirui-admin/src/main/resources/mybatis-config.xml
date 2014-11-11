@@ -46,5 +46,14 @@
     <typeAliases>
         <typeAlias alias="User" type="com.yirui.admin.sys.user.model.User" />
         <typeAlias alias="UserOrganizationJob" type="com.yirui.admin.sys.user.model.UserOrganizationJob" />
+        <typeAlias alias="UserStatusHistory" type="com.yirui.admin.sys.user.model.UserStatusHistory" />
+        <typeAlias alias="Resource" type="com.yirui.admin.sys.resource.model.Resource" />
+        <typeAlias alias="Permission" type="com.yirui.admin.sys.permission.model.Permission" />
+        <typeAlias alias="RoleResourcePermission" type="com.yirui.admin.sys.permission.model.RoleResourcePermission" />
+        <typeAlias alias="Job" type="com.yirui.admin.sys.organization.model.Job" />
+        <typeAlias alias="Organization" type="com.yirui.admin.sys.organization.model.Organization" />
+        <typeAlias alias="Group" type="com.yirui.admin.sys.group.model.Group" />
+        <typeAlias alias="GroupRelation" type="com.yirui.admin.sys.group.model.GroupRelation" />
+        <typeAlias alias="Auth" type="com.yirui.admin.sys.auth.model.Auth" />
     </typeAliases>
 </configuration>

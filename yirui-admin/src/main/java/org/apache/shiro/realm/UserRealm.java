@@ -9,6 +9,7 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,12 @@ import java.util.HashSet;
  */
 public class UserRealm extends AuthorizingRealm {
 
-    //@Autowired
+    @Autowired
     private UserService userService;
-    //@Autowired
+    @Autowired
     private UserAuthService userAuthService;
 
-    private static final Logger log = LoggerFactory.getLogger("es-error");
+    private static final Logger log = LoggerFactory.getLogger("yirui-error");
 
     @Autowired
     public UserRealm(ApplicationContext ctx) {
@@ -39,8 +40,7 @@ public class UserRealm extends AuthorizingRealm {
         //所以如果我们的bean在依赖它的bean之前初始化，那么就得不到ObjectType（永远是Repository）
         //所以此处我们先getBean一下 就没有问题了
         //ctx.getBeansOfType(SimpleBaseRepositoryFactoryBean.class);
-        this.userService = ctx.getBean(UserService.class);
-        this.userAuthService = ctx.getBean(UserAuthService.class);
+        ctx.getBeansOfType(SqlSessionFactoryBean.class);
     }
 
     @Override

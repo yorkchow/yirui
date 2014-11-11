@@ -45,6 +45,10 @@
         <!-- 单位秒 1800sec=>30min -->
         <property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeout}" />
         <property name="logAbandoned" value="${druid.logAbandoned}" />
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小  如果用Oracle，
+        则把poolPreparedStatements配置为true，mysql可以配置为false。-->
+        <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${druid.maxPoolPreparedStatementPerConnectionSize}" />
         <!-- 监控数据库 -->
         <property name="filters" value="${druid.filters}" />
     </bean>
@@ -52,7 +56,7 @@
     <!-- Mybatis config -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="configLocation" value="mybatis-config.xml" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
         <property name="mapperLocations" value="classpath*:mapper/*.xml" />
     </bean>
 

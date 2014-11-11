@@ -1,5 +1,5 @@
 <script src="${ctx}/static/js/jquery.js?1"></script>
 <script src="${ctx}/static/js/bootstrap.min.js?1"></script>
-<script src="${ctx}/static/js/validator/bootstrapValidator.min.js"></script>
+<script src="${ctx}/static/js/validator/bootstrapValidator.min.js?1"></script>
 <script src="${ctx}/static/js/plugins/metisMenu/metisMenu.min.js?1"></script>
 <script src="${ctx}/static/js/yirui-admin.js?1"></script>

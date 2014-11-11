@@ -25,7 +25,6 @@
     <!-- 会自动注册了validator  ConversionService  -->
     <mvc:annotation-driven
             validator="validator"
-            conversion-service="conversionService"
             content-negotiation-manager="contentNegotiationManager"
             enable-matrix-variables="true">
         <!--enableMatrixVariables="true">-->
