@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
         User user = null;
 
         //此处需要走代理对象，目的是能走缓存切面
-        UserServiceImpl proxyUserService = (UserServiceImpl) AopContext.currentProxy();
+        UserService proxyUserService = (UserService) AopContext.currentProxy();
         if (maybeUsername(username)) {
             user = proxyUserService.findByUsername(username);
         }

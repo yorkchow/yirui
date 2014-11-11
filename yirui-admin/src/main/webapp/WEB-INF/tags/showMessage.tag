@@ -15,7 +15,7 @@
     </div>
 </c:if>
 <c:if test="${not empty error}">
-    <div class="alert alert-danger">
+    <div class="alert alert-danger word-wrap">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <span class="icon-remove-sign icon-large"></span>&nbsp;${error}
     </div>

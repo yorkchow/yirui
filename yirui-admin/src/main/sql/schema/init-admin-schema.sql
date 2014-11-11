@@ -32,7 +32,7 @@ create table `sys_user`(
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_sys_user_username_email` (`username`,`email`),
   INDEX `idx_sys_user_status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- -------------------------------------------
 -- Table structure for sys_user_status_history
@@ -67,7 +67,7 @@ create table `sys_user_last_online`(
   `login_count`    bigint NOT NULL DEFAULT 0,
   `total_online_time` bigint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_sys_user_last_online_sys_user_id` (`user_id`),
+  UNIQUE KEY `unique_sys_user_last_online_sys_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ------------------------------------
@@ -88,7 +88,7 @@ create table `sys_organization`(
   INDEX `idx_sys_organization_type` (`type`),
   INDEX `idx_sys_organization_parent_id` (`parent_id`),
   INDEX `idx_sys_organization_parent_ids_weight` (`parent_ids`, `weight`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ---------------------------
 -- Table structure for sys_job
@@ -106,7 +106,7 @@ create table `sys_job`(
   INDEX `idx_sys_job_nam` (`name`),
   INDEX `idx_sys_job_parent_id` (`parent_id`),
   INDEX `idx_sys_job_parent_ids_weight` (`parent_ids`, `weight`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ---------------------------------------------
 -- Table structure for sys_user_organization_job
@@ -157,7 +157,7 @@ create table `sys_permission`(
   INDEX idx_sys_permission_name (`name`),
   INDEX idx_sys_permission_permission (`permission`),
   INDEX idx_sys_permission_show (`is_show`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -173,7 +173,7 @@ create table `sys_role`(
   INDEX `idx_sys_role_name` (`name`),
   INDEX `idx_sys_role_role` (`role`),
   INDEX `idx_sys_role_show` (`is_show`)
-) charset=utf8 ENGINE=InnoDB AUTO_INCREMENT=1000;
+) charset=utf8 ENGINE=InnoDB;
 
 -- ------------------------------------------------
 -- Table structure for sys_role_resource_permission
