@@ -134,6 +134,11 @@
         <property name="validationMessageSource" ref="messageSource"/>
     </bean>
 
+    <!-- 类型转换及数据格式化 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
+
+
+
     <!-- Mybatis mapper -->
     <!--
     <bean id="baseDao" class="org.mybatis.spring.mapper.MapperFactoryBean">

@@ -25,6 +25,7 @@
     <!-- 会自动注册了validator  ConversionService  -->
     <mvc:annotation-driven
             validator="validator"
+            conversion-service="conversionService"
             content-negotiation-manager="contentNegotiationManager"
             enable-matrix-variables="true">
         <!--enableMatrixVariables="true">-->
@@ -81,6 +82,30 @@
 
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
+
+    <!-- 拦截器设置 -->
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.handler.ConversionServiceExposingInterceptor">
+            <constructor-arg ref="conversionService"/>
+        </bean>
+        <bean class="com.yirui.common.web.interceptor.SetCommonDataInterceptor">
+            <property name="excludeUrlPatterns">
+                <value>
+                    /admin/polling
+                </value>
+            </property>
+        </bean>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**" />
+            <mvc:mapping path="/office/**" />
+            <mvc:exclude-mapping path="/admin/polling"/>
+            <bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor"/>
+        </mvc:interceptor>
+        <!--<mvc:interceptor>-->
+        <!--<mvc:mapping path="/**"/>-->
+        <!--<bean class="cn.javass.test.interceptor.TestInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    </mvc:interceptors>
 
     <!-- 内容协商管理器  -->
     <!--1、首先检查路径扩展名（如my.pdf）；2、其次检查Parameter（如my?format=pdf）；3、检查Accept Header-->

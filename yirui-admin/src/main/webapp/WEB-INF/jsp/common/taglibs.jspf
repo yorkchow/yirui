@@ -6,3 +6,4 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 
 <%@taglib prefix="yirui" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="sys" tagdir="/WEB-INF/tags/sys" %>

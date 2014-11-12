@@ -16,9 +16,9 @@
 <shiro:user>
 <ul class="nav navbar-top-links navbar-right">
 <li class="btn" title="点击查看个人资料">
-    <a href="#">admin!欢迎您</a>
+    <a href="#"><sys:showLoginUsername/>，欢迎您！</a>
 </li>
-<li class="dropdown" title="我的通知">
+<li class="dropdown" title="我的消息">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
     </a>
@@ -69,7 +69,7 @@
     <!-- /.dropdown-messages -->
 </li>
 <!-- /.dropdown -->
-<li class="dropdown" title="我的消息">
+<li class="dropdown" title="我的任务">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
     </a>
@@ -148,9 +148,9 @@
     <!-- /.dropdown-tasks -->
 </li>
 <!-- /.dropdown -->
-<li class="dropdown" title="我的配置">
+<li class="dropdown" title="我的通知">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        <i class="fa fa-volume-up fa-fw"></i>  <i class="fa fa-caret-down"></i>
     </a>
     <ul class="dropdown-menu dropdown-alerts">
         <li>
@@ -213,12 +213,12 @@
         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
     </a>
     <ul class="dropdown-menu dropdown-user">
-        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+        <li><a href="#"><i class="fa fa-user fa-fw"></i> 个人资料</a>
         </li>
-        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+        <li><a href="#"><i class="fa fa-key fa-fw"></i> 修改密码</a>
         </li>
         <li class="divider"></li>
-        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        <li><a href="${ctx}/logout"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
         </li>
     </ul>
     <!-- /.dropdown-user -->
@@ -234,11 +234,11 @@
             <li class="sidebar-search">
                 <div class="input-group custom-search-form">
                     <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
                 </div>
                 <!-- /input-group -->
             </li>
@@ -246,13 +246,13 @@
                 <a class="active" href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 统计报表<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="flot.html">Flot Charts</a>
+                        <a href="#">订单统计</a>
                     </li>
                     <li>
-                        <a href="morris.html">Morris.js Charts</a>
+                        <a href="#">用户统计</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
