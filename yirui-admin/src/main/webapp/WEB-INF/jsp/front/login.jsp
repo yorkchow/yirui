@@ -14,11 +14,17 @@
                     <form role="form" id="loginForm" method="post">
                         <yirui:BackURL hiddenInput="true"/>
                         <fieldset>
-                            <div class="form-group">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user fa-fw"></i>
+                                </span>
                                 <input class="form-control" type="text" id="username" name="username" value="${param.username}"
                                        placeholder="请输入用户名、邮箱或手机号" autofocus>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key fa-fw"></i>
+                                </span>
                                 <input class="form-control" placeholder="请输入密码" id="password" name="password" type="password">
                             </div>
                             <div class="checkbox">
