@@ -8,6 +8,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>抽象service层基类 提供一些简便方法
@@ -65,6 +66,16 @@ public abstract class BaseService<M extends AbstractModel, ID extends Serializab
     }
 
     /**
+     * 批量删除相应实体
+     * @param id
+     */
+    public void delete(ID[] ids) {
+        for (ID id : ids) {
+            baseDao.delete(id);
+        }
+    }
+
+    /**
      * 按照主键查询
      *
      * @param id 主键
@@ -100,6 +111,25 @@ public abstract class BaseService<M extends AbstractModel, ID extends Serializab
      */
     public List<M> findAll() {
         return baseDao.findAll();
+    }
+
+    /**
+     * 按照顺序查询所有实体
+     *
+     * @param sort
+     * @return
+     */
+    public List<M> findAllAndSort(Map<String, Object> sort) {
+        return baseDao.findAllAndSort(sort);
+    }
+
+    /**
+     * 按照搜索条件查询所有实体
+     * @param search
+     * @return
+     */
+    public List<M> findAllBySearch(Map<String, Object> search) {
+        return baseDao.findAllBySearch(search);
     }
 
     /**

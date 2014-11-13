@@ -49,4 +49,9 @@ public interface Constants {
     String CURRENT_USERNAME = "username";
 
     String ENCODING = "UTF-8";
+
+    /**
+     * 搜索字符串k,v分割符（如k=v)
+     */
+    String SEARCH_SEPARATOR = "=";
 }

@@ -2,6 +2,7 @@ package com.yirui.common.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>抽象DAO层基类 提供一些简便方法
@@ -45,6 +46,22 @@ public interface BaseDao<M, ID extends Serializable> {
      * @return
      */
     public List<M> findAll();
+
+    /**
+     * 查询所有排序后的实体
+     * @param sort
+     * @return
+     */
+    public List<M> findAllAndSort(Map<String, Object> sort);
+
+    /**
+     * 根据条件查询所有
+     * 条件 + 排序
+     *
+     * @param search
+     * @return
+     */
+    public List<M> findAllBySearch(Map<String, Object> search);
 
     /**
      * 按照主键查询
