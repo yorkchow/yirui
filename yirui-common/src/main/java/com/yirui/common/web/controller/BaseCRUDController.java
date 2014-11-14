@@ -34,7 +34,6 @@ public abstract class BaseCRUDController<M extends AbstractModel, ID extends Ser
      *
      * @param baseService
      */
-    @Autowired
     public void setBaseService(BaseService<M, ID> baseService) {
         this.baseService = baseService;
     }
@@ -56,7 +55,7 @@ public abstract class BaseCRUDController<M extends AbstractModel, ID extends Ser
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+
     public String list(Map<String, Object> search, Model model) {
 
         search.put("sort", "id desc");

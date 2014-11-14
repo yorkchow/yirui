@@ -93,7 +93,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="transactionPointcut" expression="execution(* com.yirui.admin..service..*(..))"/>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.yirui..service..*(..))"/>
         <aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointcut" />
     </aop:config>
 
@@ -104,7 +104,7 @@
           scope="prototype">
         <property name="patterns">
             <list>
-                <value>com.yirui.**.service.*</value>
+                <value>com.yirui.*.service.*</value>
             </list>
         </property>
     </bean>

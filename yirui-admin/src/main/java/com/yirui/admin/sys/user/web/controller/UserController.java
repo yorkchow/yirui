@@ -35,9 +35,12 @@ import java.util.Set;
 @RequestMapping(value = "/admin/sys/user")
 public class UserController extends BaseCRUDController<User, Integer> {
 
-    private UserService getUserService() {
+    @Autowired
+    private UserService userService;
+
+    /*private UserService getUserService() {
         return (UserService) baseService;
-    }
+    }*/
 
     public UserController() {
         setResourceIdentity("sys:user");

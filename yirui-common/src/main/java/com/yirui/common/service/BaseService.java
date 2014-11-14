@@ -3,7 +3,6 @@ package com.yirui.common.service;
 import com.yirui.common.dao.BaseDao;
 import com.yirui.common.model.AbstractModel;
 import com.yirui.common.model.support.annotation.TableName;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.io.Serializable;
