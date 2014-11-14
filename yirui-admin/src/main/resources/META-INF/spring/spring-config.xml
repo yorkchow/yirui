@@ -104,7 +104,7 @@
           scope="prototype">
         <property name="patterns">
             <list>
-                <value>com.actionsky.dbaas.ui.service.*</value>
+                <value>com.yirui.**.service.*</value>
             </list>
         </property>
     </bean>
